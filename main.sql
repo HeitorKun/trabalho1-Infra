@@ -150,3 +150,31 @@ WHERE
     AND (AFS.TUESDAY = 1 OR AFS.WEDNESDAY = 1 OR AFS.THURSDAY = 1)
     AND EXTRACT(MONTH FROM AF.DEPARTURE) = 3;
 
+--5
+-- Consulta SQL para Informações Detalhadas de Passageiros e Reservas de Voos
+-- Objetivo: 
+--   Esta consulta foi desenvolvida para listar informações detalhadas dos passageiros
+--   e suas reservas de voos. Ela combina informações pessoais dos passageiros com 
+--   detalhes específicos das suas reservas.
+-- Junções:
+--   1. Junta 'AIR_PASSENGERS' com 'AIR_PASSENGERS_DETAILS', que estão em um hash cluster,
+--      para um acesso mais eficiente e otimizado.
+--   2. Inclui 'AIR_BOOKINGS' para obter informações detalhadas sobre as reservas de voos.
+-- Campos Selecionados:
+--   Seleciona nome, sobrenome, cidade e país de residência dos passageiros, juntamente com 
+--   informações de reserva como ID do voo, assento e preço.
+
+SELECT 
+    AP.FIRSTNAME, 
+    AP.LASTNAME, 
+    APD.CITY, 
+    APD.COUNTRY, 
+    AB.FLIGHT_ID, 
+    AB.SEAT, 
+    AB.PRICE
+FROM 
+    AIR_PASSENGERS AP
+INNER JOIN 
+    AIR_PASSENGERS_DETAILS APD ON AP.PASSENGER_ID = APD.PASSENGER_ID
+INNER JOIN 
+    AIR_BOOKINGS AB ON AP.PASSENGER_ID = AB.PASSENGER_ID;
