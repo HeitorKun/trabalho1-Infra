@@ -58,9 +58,6 @@ create table air_passengers_details
 		  from arruda.air_passengers_details;
 
 
-select firstname,
-       lastname
-  from arruda.air_passengers;
 
 
 -- 1
@@ -81,6 +78,7 @@ WHERE
 
 
 --2
+
 SELECT 
     AA.AIRLINE_NAME,
     AP.AIRPLANE_ID,
@@ -89,7 +87,7 @@ SELECT
 FROM 
     AIR_FLIGHTS AF
 INNER JOIN 
-    AIR_AIRLINES AA ON AF.AIRLINE_ID = AA.AIRLINE_ID -- Assuming AIRLINE_ID should be joined
+    AIR_AIRLINES AA ON AF.AIRLINE_ID = AA.AIRLINE_ID
 INNER JOIN 
     AIR_AIRPLANES AP ON AF.AIRPLANE_ID = AP.AIRPLANE_ID
 INNER JOIN 
@@ -109,6 +107,7 @@ GROUP BY
 
 
 --3
+
 SELECT 
     AF.FLIGHTNO AS FlightNumber,
     DEP_AIRPORT.NAME AS DepartureAirport,
@@ -151,18 +150,7 @@ WHERE
     AND EXTRACT(MONTH FROM AF.DEPARTURE) = 3;
 
 --5
--- Consulta SQL para Informações Detalhadas de Passageiros e Reservas de Voos
--- Objetivo: 
---   Esta consulta foi desenvolvida para listar informações detalhadas dos passageiros
---   e suas reservas de voos. Ela combina informações pessoais dos passageiros com 
---   detalhes específicos das suas reservas.
--- Junções:
---   1. Junta 'AIR_PASSENGERS' com 'AIR_PASSENGERS_DETAILS', que estão em um hash cluster,
---      para um acesso mais eficiente e otimizado.
---   2. Inclui 'AIR_BOOKINGS' para obter informações detalhadas sobre as reservas de voos.
--- Campos Selecionados:
---   Seleciona nome, sobrenome, cidade e país de residência dos passageiros, juntamente com 
---   informações de reserva como ID do voo, assento e preço.
+
 
 SELECT 
     AP.FIRSTNAME, 
