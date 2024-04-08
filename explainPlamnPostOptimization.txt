@@ -1,0 +1,56 @@
+
+
+2:
+
+Explained.
+
+
+PLAN_TABLE_OUTPUT
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Plan hash value: 3110968751
+ 
+---------------------------------------------------------------------------------------------------
+| Id  | Operation                    | Name               | Rows  | Bytes | Cost (%CPU)| Time     |
+---------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT             |                    |     6 |   636 |    80   (2)| 00:00:01 |
+|   1 |  HASH GROUP BY               |                    |     6 |   636 |    80   (2)| 00:00:01 |
+|*  2 |   HASH JOIN                  |                    |     6 |   636 |    79   (0)| 00:00:01 |
+|*  3 |    HASH JOIN                 |                    |     6 |   504 |    76   (0)| 00:00:01 |
+|*  4 |     HASH JOIN                |                    |     6 |   396 |    73   (0)| 00:00:01 |
+|*  5 |      HASH JOIN               |                    |     6 |   348 |    66   (0)| 00:00:01 |
+|*  6 |       HASH JOIN              |                    |    93 |  3999 |    43   (0)| 00:00:01 |
+|*  7 |        HASH JOIN             |                    |    93 |  3534 |    36   (0)| 00:00:01 |
+|*  8 |         HASH JOIN            |                    |   614 | 12280 |    30   (0)| 00:00:01 |
+|*  9 |          TABLE ACCESS FULL   | AIR_AIRPORTS_GEO   |   614 |  9210 |    23   (0)| 00:00:01 |
+|  10 |          INDEX FAST FULL SCAN| IDX_AIRPORT_ID     |  9854 | 49270 |     7   (0)| 00:00:01 |
+|  11 |         TABLE ACCESS FULL    | AIR_FLIGHTS        |  1498 | 26964 |     6   (0)| 00:00:01 |
+|  12 |        INDEX FAST FULL SCAN  | IDX_AIRPORT_ID     |  9854 | 49270 |     7   (0)| 00:00:01 |
+|* 13 |       TABLE ACCESS FULL      | AIR_AIRPORTS_GEO   |   614 |  9210 |    23   (0)| 00:00:01 |
+|  14 |      TABLE ACCESS FULL       | AIR_AIRPLANES      |  5583 | 44664 |     7   (0)| 00:00:01 |
+|  15 |     TABLE ACCESS FULL        | AIR_AIRPLANE_TYPES |   342 |  6156 |     3   (0)| 00:00:01 |
+|  16 |    TABLE ACCESS FULL         | AIR_AIRLINES       |   113 |  2486 |     3   (0)| 00:00:01 |
+
+PLAN_TABLE_OUTPUT
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   2 - access("AF"."AIRLINE_ID"="AA"."AIRLINE_ID")
+   3 - access("AP"."AIRPLANE_TYPE_ID"="AT"."AIRPLANE_TYPE_ID")
+   4 - access("AF"."AIRPLANE_ID"="AP"."AIRPLANE_ID")
+   5 - access("FROM_A"."AIRPORT_ID"="FROM_AG"."AIRPORT_ID")
+   6 - access("AF"."FROM_AIRPORT_ID"="FROM_A"."AIRPORT_ID")
+   7 - access("AF"."TO_AIRPORT_ID"="TO_A"."AIRPORT_ID")
+   8 - access("TO_A"."AIRPORT_ID"="TO_AG"."AIRPORT_ID")
+   9 - filter("TO_AG"."COUNTRY"='BRAZIL')
+  13 - filter("FROM_AG"."COUNTRY"='BRAZIL')
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+   - this is an adaptive plan
+   - 1 Sql Plan Directive used for this statement
+
+42 rows selected. 
