@@ -1,8 +1,0 @@
-
-
-
-2:
-
-CREATE INDEX idx_airport_id ON AIR_AIRPORTS(AIRPORT_ID);
-
-
